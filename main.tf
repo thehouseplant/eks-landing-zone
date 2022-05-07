@@ -61,3 +61,8 @@ resource "aws_subnet" "public_d" {
     Name = "Public Subnet D"
   }
 }
+
+# Internet gateway
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.vpc.id
+}
