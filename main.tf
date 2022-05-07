@@ -21,6 +21,11 @@ resource "aws_vpc" "vpc" {
   cidr_block = "10.0.0.0/16"
 }
 
+# Internet gateway
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.vpc.id
+}
+
 # Public subnets
 resource "aws_subnet" "public_a" {
   vpc_id = aws_vpc.vpc.id
@@ -62,7 +67,43 @@ resource "aws_subnet" "public_d" {
   }
 }
 
-# Internet gateway
-resource "aws_internet_gateway" "gw" {
+# Private subnets
+resource "aws_subnet" "private_a" {
   vpc_id = aws_vpc.vpc.id
+  cidr_block = "10.0.5.0/24"
+  availability_zone = "us-west-2a"
+
+  tags = {
+    Name = "Private Subnet A"
+  }
+}
+
+resource "aws_subnet" "private_b" {
+  vpc_id = aws_vpc.vpc.id
+  cidr_block = "10.0.6.0/24"
+  availability_zone = "us-west-2b"
+
+  tags = {
+    Name = "Private Subnet B"
+  }
+}
+
+resource "aws_subnet" "private_c" {
+  vpc_id = aws_vpc.vpc.id
+  cidr_block = "10.0.7.0/24"
+  availability_zone = "us-west-2c"
+
+  tags = {
+    Name = "Private Subnet C"
+  }
+}
+
+resource "aws_subnet" "private_d" {
+  vpc_id = aws_vpc.vpc.id
+  cidr_block = "10.0.5.0/24"
+  availability_zone = "us-west-2d"
+
+  tags = {
+    Name = "Private Subnet D"
+  }
 }
