@@ -361,12 +361,47 @@ resource "aws_ecs_cluster" "cluster" {
   }
 }
 
-# Logging resources
+# Load balancers
+resource "aws_lb" "alb" {
+  name               = "ECS-CLUSTER-ALB"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = []
+  subnets            = [for subnet in aws_subnet.public : subnet_id]
+
+  enable_deletion_protection = true
+
+  access_logs {
+    bucket  = aws_s3_bucket.s3_logs.bucket
+    prefix  = "alb"
+    enabled = true
+  }
+
+  tags = {
+    Name = "ECS-CLUSTER-ALB"
+  }
+}
+
+# S3 buckets
+resource "aws_s3_bucket" "s3_logs" {
+  bucket = "ecs-test-s3-bucket-logs"
+
+  tags = {
+    Name = "ECS Logging Bucket"
+  }
+}
+
+resource "aws_s3_bucket_acl" "s3_acl" {
+  bucket = aws_s3_bucket.s3_logs.id
+  acl    = "private"
+}
+
+# Cloudwatch
 resource "aws_cloudwatch_log_group" "cluster_logs" {
   name = "ECS-CLUSTER-LOGS"
 }
 
-# KMS resources
+# KMS
 resource "aws_kms_key" "cluster_key" {
   description             = "ClusterKey"
   deletion_window_in_days = 7
