@@ -67,6 +67,67 @@ resource "aws_subnet" "public_d" {
   }
 }
 
+# Public subnet route tables and associations
+resource "aws_route_table" "public_a" {
+  vpc_id = aws_vpc.vpc.id
+
+  route {}
+
+  tags = {
+    Name = "Public Route Table A"
+  }
+}
+
+resource "aws_route_table_association" "public_a" {
+  subnet_id      = aws_subnet.public_a.id
+  route_table_id = aws_route_table.public_a.id
+}
+
+resource "aws_route_table" "public_b" {
+  vpc_id = aws_vpc.vpc.id
+
+  route {}
+
+  tags = {
+    Name = "Public Route Table B"
+  }
+}
+
+resource "aws_route_table_association" "public_b" {
+  subnet_id      = aws_subnet.public_b.id
+  route_table_id = aws_route_table.public_b.id
+}
+
+resource "aws_route_table" "public_c" {
+  vpc_id = aws_vpc.vpc.id
+
+  route {}
+
+  tags = {
+    Name = "Public Route Table C"
+  }
+}
+
+resource "aws_route_table_association" "public_c" {
+  subnet_id      = aws_subnet.public_c.id
+  route_table_id = aws_route_table.public_c.id
+}
+
+resource "aws_route_table" "public_d" {
+  vpc_id = aws_vpc.vpc.id
+
+  route {}
+
+  tags = {
+    Name = "Public Route Table D"
+  }
+}
+
+resource "aws_route_table_association" "public_d" {
+  subnet_id      = aws_subnet.public_d.id
+  route_table_id = aws_route_table.public_d.id
+}
+
 # Public NAT gateways and Elastic IP addresses
 resource "aws_eip" "public_a" {
   vpc = true
