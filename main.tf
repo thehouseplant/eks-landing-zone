@@ -176,3 +176,40 @@ resource "aws_subnet" "private_d" {
     Name = "Private Subnet D"
   }
 }
+
+# Private NAT gateways
+resource "aws_nat_gateway" "private_a" {
+  connectivity_type = "private"
+  subnet_id         = aws_subnet.private_a.id
+
+  tags = {
+    Name = "Private NAT A"
+  }
+}
+
+resource "aws_nat_gateway" "private_b" {
+  connectivity_type = "private"
+  subnet_id         = aws_subnet.private_b.id
+
+  tags = {
+    Name = "Private NAT B"
+  }
+}
+
+resource "aws_nat_gateway" "private_c" {
+  connectivity_type = "private"
+  subnet_id         = aws_subnet.private_c.id
+
+  tags = {
+    Name = "Private NAT C"
+  }
+}
+
+resource "aws_nat_gateway" "private_d" {
+  connectivity_type = "private"
+  subnet_id         = aws_subnet.private_d.id
+
+  tags = {
+    Name = "Private NAT D"
+  }
+}
