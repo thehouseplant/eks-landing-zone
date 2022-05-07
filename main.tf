@@ -361,7 +361,7 @@ resource "aws_ecs_cluster" "cluster" {
   }
 }
 
-# Load balancers
+# Load balancer and target group
 resource "aws_lb" "alb" {
   name               = "ECS-CLUSTER-ALB"
   internal           = false
@@ -382,7 +382,14 @@ resource "aws_lb" "alb" {
   }
 }
 
-# S3 buckets
+resource "aws_lb_target_group" "group" {
+  name     = "ECS-CLUSTER-ALB-GROUP"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.vpc.id
+}
+
+# S3 buckets and ACLs
 resource "aws_s3_bucket" "s3_logs" {
   bucket = "ecs-test-s3-bucket-logs"
 
