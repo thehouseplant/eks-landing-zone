@@ -67,6 +67,75 @@ resource "aws_subnet" "public_d" {
   }
 }
 
+# Public NAT gateways and Elastic IP addresses
+resource "aws_eip" "public_a" {
+  vpc = true
+
+  tags = {
+    Name = "Public EIP A"
+  }
+}
+
+resource "aws_nat_gateway" "public_a" {
+  allocation_id = aws_eip.public_a.id
+  subnet_id     = aws_subnet.public_a.id
+
+  tags = {
+    Name = "Public NAT A"
+  }
+}
+
+resource "aws_eip" "public_b" {
+  vpc = true
+
+  tags = {
+    Name = "Public EIP B"
+  }
+}
+
+esource "aws_nat_gateway" "public_b" {
+  allocation_id = aws_eip.public_b.id
+  subnet_id     = aws_subnet.public_b.id
+
+  tags = {
+    Name = "Public NAT B"
+  }
+}
+
+resource "aws_eip" "public_c" {
+  vpc = true
+
+  tags = {
+    Name = "Public EIP C"
+  }
+}
+
+esource "aws_nat_gateway" "public_c" {
+  allocation_id = aws_eip.public_c.id
+  subnet_id     = aws_subnet.public_c.id
+
+  tags = {
+    Name = "Public NAT C"
+  }
+}
+
+resource "aws_eip" "public_d" {
+  vpc = true
+
+  tags = {
+    Name = "Public EIP D"
+  }
+}
+
+esource "aws_nat_gateway" "public_d" {
+  allocation_id = aws_eip.public_d.id
+  subnet_id     = aws_subnet.public_d.id
+
+  tags = {
+    Name = "Public NAT D"
+  }
+}
+
 # Private subnets
 resource "aws_subnet" "private_a" {
   vpc_id            = aws_vpc.vpc.id
