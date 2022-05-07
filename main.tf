@@ -2,7 +2,7 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "~> 3.0"
     }
   }
@@ -28,8 +28,8 @@ resource "aws_internet_gateway" "gw" {
 
 # Public subnets
 resource "aws_subnet" "public_a" {
-  vpc_id = aws_vpc.vpc.id
-  cidr_block = "10.0.1.0/24"
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = "10.0.1.0/24"
   availability_zone = "us-west-2a"
 
   tags = {
@@ -38,8 +38,8 @@ resource "aws_subnet" "public_a" {
 }
 
 resource "aws_subnet" "public_b" {
-  vpc_id = aws_vpc.vpc.id
-  cidr_block = "10.0.2.0/24"
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = "10.0.2.0/24"
   availability_zone = "us-west-2b"
 
   tags = {
@@ -48,8 +48,8 @@ resource "aws_subnet" "public_b" {
 }
 
 resource "aws_subnet" "public_c" {
-  vpc_id = aws_vpc.vpc.id
-  cidr_block = "10.0.3.0/24"
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = "10.0.3.0/24"
   availability_zone = "us-west-2c"
 
   tags = {
@@ -58,8 +58,8 @@ resource "aws_subnet" "public_c" {
 }
 
 resource "aws_subnet" "public_d" {
-  vpc_id = aws_vpc.vpc.id
-  cidr_block = "10.0.4.0/24"
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = "10.0.4.0/24"
   availability_zone = "us-west-2d"
 
   tags = {
@@ -69,8 +69,8 @@ resource "aws_subnet" "public_d" {
 
 # Private subnets
 resource "aws_subnet" "private_a" {
-  vpc_id = aws_vpc.vpc.id
-  cidr_block = "10.0.5.0/24"
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = "10.0.5.0/24"
   availability_zone = "us-west-2a"
 
   tags = {
@@ -79,8 +79,8 @@ resource "aws_subnet" "private_a" {
 }
 
 resource "aws_subnet" "private_b" {
-  vpc_id = aws_vpc.vpc.id
-  cidr_block = "10.0.6.0/24"
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = "10.0.6.0/24"
   availability_zone = "us-west-2b"
 
   tags = {
@@ -89,8 +89,8 @@ resource "aws_subnet" "private_b" {
 }
 
 resource "aws_subnet" "private_c" {
-  vpc_id = aws_vpc.vpc.id
-  cidr_block = "10.0.7.0/24"
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = "10.0.7.0/24"
   availability_zone = "us-west-2c"
 
   tags = {
@@ -99,8 +99,8 @@ resource "aws_subnet" "private_c" {
 }
 
 resource "aws_subnet" "private_d" {
-  vpc_id = aws_vpc.vpc.id
-  cidr_block = "10.0.5.0/24"
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = "10.0.5.0/24"
   availability_zone = "us-west-2d"
 
   tags = {
