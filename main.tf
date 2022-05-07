@@ -93,7 +93,7 @@ resource "aws_eip" "public_b" {
   }
 }
 
-esource "aws_nat_gateway" "public_b" {
+resource "aws_nat_gateway" "public_b" {
   allocation_id = aws_eip.public_b.id
   subnet_id     = aws_subnet.public_b.id
 
@@ -110,7 +110,7 @@ resource "aws_eip" "public_c" {
   }
 }
 
-esource "aws_nat_gateway" "public_c" {
+resource "aws_nat_gateway" "public_c" {
   allocation_id = aws_eip.public_c.id
   subnet_id     = aws_subnet.public_c.id
 
@@ -127,7 +127,7 @@ resource "aws_eip" "public_d" {
   }
 }
 
-esource "aws_nat_gateway" "public_d" {
+resource "aws_nat_gateway" "public_d" {
   allocation_id = aws_eip.public_d.id
   subnet_id     = aws_subnet.public_d.id
 
