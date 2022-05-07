@@ -1,5 +1,10 @@
 # Define the AWS provider
 terraform {
+  backend "s3" {
+    bucket = ""
+    key    = "ecs.cluster.test.tfstate"
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -480,8 +485,8 @@ resource "aws_iam_role" "service_a" {
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
-        Sid = ""
-        Principal {
+        Sid    = ""
+        Principal = {
           Service = "ec2.amazonaws.com"
         }
       }
