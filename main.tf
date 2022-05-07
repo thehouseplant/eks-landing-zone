@@ -15,7 +15,7 @@ provider "aws" {
 
 
 
-# Networking
+# Networking resources
 # VPC
 resource "aws_vpc" "vpc" {
   cidr_block = "10.0.0.0/16"
@@ -338,8 +338,8 @@ resource "aws_nat_gateway" "private_d" {
 
 
 
-# ECS
 # Cluster resources
+# ECS cluster
 resource "aws_ecs_cluster" "cluster" {
   name = "ECS-CLUSTER"
 
@@ -465,5 +465,30 @@ resource "aws_ecs_service" "service_a" {
   placement_constraints {
     type       = "memberOf"
     expression = "attribute:ecs.availability-zone in [us-west-2a, us-west-2b, us-west-2c, us-west-2d]"
+  }
+}
+
+
+
+# IAM Resources
+resource "aws_iam_role" "service_a" {
+  name = "ECS-SERVICE-A-ROLE"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid = ""
+        Principal {
+          Service = "ec2.amazonaws.com"
+        }
+      }
+    ]
+  })
+
+  tags = {
+    Name = "ECS-SERVICE-A-ROLE"
   }
 }
