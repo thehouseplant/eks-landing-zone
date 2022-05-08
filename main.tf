@@ -567,6 +567,7 @@ resource "aws_iam_instance_profile" "profile" {
 
 
 # Security groups
+# ECS security group
 resource "aws_security_group" "ecs_sg" {
   vpc_id = aws_vpc.vpc.id
 
@@ -590,4 +591,47 @@ resource "aws_security_group" "ecs_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+# RDS security group
+resource "aws_security_group" "rds_sg" {
+  vpc_id = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/8"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+
+# Database resources
+resource "aws_db_instance" "mysql" {
+  identifier                = "ECS-CLUSTER-RDS"
+  allocated_storage         = 5
+  backup_retention_period   = 2
+  backup_window             = "01:00-01:30"
+  maintenance_window        = "sun:03:00-sun:03:30"
+  multi_az                  = true
+  engine                    = "mysql"
+  engine_version            = "5.7"
+  instance_class            = "db.t3.small"
+  name                      = "ECS-CLUSTER-RDS"
+  username                  = "administrator"
+  password                  = ""
+  port                      = "5432"
+  db_subnet_group_name      = ""
+  vpc_security_group_ids    = [""]
+  skip_final_snapshot       = true
+  final_snapshot_identifier = "ECS-CLUSTER-RDS-FINAL"
+  publicly_accessible       = false
 }
