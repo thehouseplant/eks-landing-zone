@@ -82,7 +82,10 @@ resource "aws_subnet" "public_d" {
 resource "aws_route_table" "public_a" {
   vpc_id = aws_vpc.vpc.id
 
-  route {}
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
 
   tags = {
     Name = "Public Route Table A"
@@ -97,7 +100,10 @@ resource "aws_route_table_association" "public_a" {
 resource "aws_route_table" "public_b" {
   vpc_id = aws_vpc.vpc.id
 
-  route {}
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
 
   tags = {
     Name = "Public Route Table B"
@@ -112,7 +118,10 @@ resource "aws_route_table_association" "public_b" {
 resource "aws_route_table" "public_c" {
   vpc_id = aws_vpc.vpc.id
 
-  route {}
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
 
   tags = {
     Name = "Public Route Table C"
@@ -127,7 +136,10 @@ resource "aws_route_table_association" "public_c" {
 resource "aws_route_table" "public_d" {
   vpc_id = aws_vpc.vpc.id
 
-  route {}
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
 
   tags = {
     Name = "Public Route Table D"
@@ -253,7 +265,10 @@ resource "aws_subnet" "private_d" {
 resource "aws_route_table" "private_a" {
   vpc_id = aws_vpc.vpc.id
 
-  route {}
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
 
   tags = {
     Name = "Private Route Table A"
@@ -268,7 +283,10 @@ resource "aws_route_table_association" "private_a" {
 resource "aws_route_table" "private_b" {
   vpc_id = aws_vpc.vpc.id
 
-  route {}
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
 
   tags = {
     Name = "Private Route Table B"
@@ -283,7 +301,10 @@ resource "aws_route_table_association" "private_b" {
 resource "aws_route_table" "private_c" {
   vpc_id = aws_vpc.vpc.id
 
-  route {}
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
 
   tags = {
     Name = "Private Route Table C"
@@ -298,7 +319,10 @@ resource "aws_route_table_association" "private_c" {
 resource "aws_route_table" "private_d" {
   vpc_id = aws_vpc.vpc.id
 
-  route {}
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
 
   tags = {
     Name = "Private Route Table D"
