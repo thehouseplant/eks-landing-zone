@@ -374,6 +374,11 @@ resource "aws_nat_gateway" "private_d" {
 
 
 # Cluster resources
+# ECR repository
+resource "aws_ecr_repository" "repo" {
+  name = "ECS-CLUSTER-REPO"
+}
+
 # ECS cluster
 resource "aws_ecs_cluster" "cluster" {
   name = "ECS-CLUSTER"
@@ -510,7 +515,7 @@ resource "aws_ecs_service" "service_a" {
   cluster         = aws_ecs_cluster.cluster.id
   task_definition = aws_ecs_task_definition.service_a.arn
   desired_count   = 4
-  iam_role        = ""
+  iam_role        = aws_iam_role.service_a.name
 
   ordered_placement_strategy {
     type  = "binpack"
