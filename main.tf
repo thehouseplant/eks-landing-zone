@@ -3,6 +3,7 @@ terraform {
   backend "s3" {
     bucket = ""
     key    = "ecs.cluster.test.tfstate"
+    region = "us-west-2"
   }
 
   required_providers {
