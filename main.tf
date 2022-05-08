@@ -396,6 +396,32 @@ resource "aws_ecs_cluster" "cluster" {
   }
 }
 
+# Auto-scaling group and launch configuration
+resource "aws_launch_configuration" "ecs_launch" {
+  image_id             = ""
+  iam_instance_profile = aws_iam_instance_profile.profile.name
+  security_groups      = [aws_security_group.ecs_sg.id]
+  user_data            = ""
+  instance_type        = "t3.small"
+}
+
+resource "aws_autoscaling_group" "ecs_asg" {
+  name = "ECS-CLUSTER-ASG"
+  vpc_zone_identifier = [
+    aws_subnet.private_a.id,
+    aws_subnet.private_b.id,
+    aws_subnet.private_c.id,
+    aws_subnet.private_d.id
+  ]
+  launch_configuration = aws_launch_configuration.ecs_launch.name
+
+  desired_capacity          = 4
+  min_size                  = 4
+  max_size                  = 6
+  health_check_grace_period = 300
+  health_check_type         = "EC2"
+}
+
 # Load balancer and target group
 resource "aws_lb" "alb" {
   name               = "ECS-CLUSTER-ALB"
@@ -526,6 +552,11 @@ resource "aws_iam_role" "service_a" {
   tags = {
     Name = "ECS-SERVICE-A-ROLE"
   }
+}
+
+resource "aws_iam_instance_profile" "profile" {
+  name = "ECS-SERVICE-A-PROFILE"
+  role = aws_iam_role.service_a.name
 }
 
 
