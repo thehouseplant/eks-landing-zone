@@ -630,7 +630,7 @@ resource "aws_db_instance" "mysql" {
   password                  = ""
   port                      = "5432"
   db_subnet_group_name      = ""
-  vpc_security_group_ids    = [""]
+  vpc_security_group_ids    = [aws_security_group.rds_sg.id]
   skip_final_snapshot       = true
   final_snapshot_identifier = "ECS-CLUSTER-RDS-FINAL"
   publicly_accessible       = false
