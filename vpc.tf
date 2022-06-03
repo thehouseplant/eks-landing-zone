@@ -1,11 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
-locals {
-  cluster_name = "EKS-CLUSTER-TEST"
-}
-
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.2.0"
