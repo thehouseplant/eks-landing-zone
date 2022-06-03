@@ -48,7 +48,7 @@ resource "aws_route_table_association" "public_c" {
 
 # Private subents and route table associations
 resource "aws_subnet" "private_a" {
-  vpc_id            = aws_vpc.vpc.id
+  vpc_id            = module.vpc.vpc_id
   cidr_block        = "10.0.5.0/24"
   availability_zone = "us-west-2a"
 
@@ -63,7 +63,7 @@ resource "aws_route_table_association" "private_a" {
 }
 
 resource "aws_subnet" "private_b" {
-  vpc_id            = aws_vpc.vpc.id
+  vpc_id            = module.vpc.vpc_id
   cidr_block        = "10.0.6.0/24"
   availability_zone = "us-west-2b"
 
@@ -78,7 +78,7 @@ resource "aws_route_table_association" "private_b" {
 }
 
 resource "aws_subnet" "private_c" {
-  vpc_id            = aws_vpc.vpc.id
+  vpc_id            = module.vpc.vpc_id
   cidr_block        = "10.0.7.0/24"
   availability_zone = "us-west-2c"
 
