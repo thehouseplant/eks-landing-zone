@@ -1,6 +1,6 @@
-# ECS Test
+# EKS Test
 
-A test environment for greenfield container image deployments using AWS Elastic Container Service (ECS)
+A test environment for greenfield container image deployments using AWS Elastic Kubernetes Service (EKS)
 
 ## Requirements
 
