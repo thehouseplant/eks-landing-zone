@@ -9,7 +9,7 @@ A test environment for greenfield container image deployments using AWS Elastic 
 ## Getting Started
 
 - Clone the repository:
-  - `git clone git@github.com:thehouseplant/ecs-test.git`
+  - `git clone git@github.com:thehouseplant/eks-test.git`
 - Initialize Terraform:
   - `terraform init`
 - Validate templates:
