@@ -1,38 +1,34 @@
-module "eks" {
-  source          = "terraform-aws-modules/eks/aws"
-  version         = "17.24.0"
-  cluster_name    = "EKS-CLUSTER-TEST"
-  cluster_version = "1.20"
-  subnets         = module.vpc.private_subnets
+resource "aws_eks_cluster" "cluster" {
+  name = "EKS-TEST"
+  role_arn = aws_iam_role.cluster_role.arn
+  version = "1.20"
 
-  vpc_id = module.vpc.vpc_id
-
-  workers_group_defaults = {
-    root_volume_type = "gp3"
+  vpc_config {
+    security_group_ids = [aws_security_group.eks_sg.id]
+    subnet_ids = [aws_subnet.private_a.id, aws_subnet.private_b.id, aws_subnet.private_c.id]
   }
-
-  worker_groups = [
-    {
-      name                          = "EKS-WORKERS-1"
-      instance_type                 = "t3.small"
-      additional_userdata           = "echo Hello World!"
-      additional_security_group_ids = []
-      asg_desired_capacity          = 3
-    },
-    {
-      name                          = "EKS-WORKERS-2"
-      instance_type                 = "t3.small"
-      additional_userdata           = "echo Hello World!"
-      additional_security_group_ids = []
-      asg_desired_capacity          = 3
-    }
+  
+  depends_on = [
+    "aws_iam_role_policy_attachment.eks-cluster-AmazonEKSClusterPolicy",
+    "aws_iam_role_policy_attachment.eks-cluster-AmazonEKSServicePolicy"
   ]
 }
 
-data "aws_eks_cluster" "cluster" {
-  name = module.eks.cluster_id
-}
+resource "aws_eks_node_group" "node" {
+  cluster_name = aws_eks_cluster.cluster.name
+  node_group_name = "EKS-TEST-1"
+  node_role_arn = aws_iam_role.nodes_role.arn
+  subnet_ids = [aws_subnet.private_a.id, aws_subnet.private_b.id, aws_subnet.private_c.id]
 
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.eks.cluster_id
+  scaling_config {
+    desired_size = 3
+    max_size = 5
+    min_size = 3
+  }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly
+  ]
 }
