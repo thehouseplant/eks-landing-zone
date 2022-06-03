@@ -1,6 +1,6 @@
 # EKS cluser role
 resource "aws_iam_role" "cluster_role" {
-  name               = "eksclusterrole"
+  name = "eksclusterrole"
 
   assume_role_policy = <<POLICY
 {
