@@ -4,7 +4,7 @@ A test environment for greenfield container image deployments using AWS Elastic 
 
 ## Requirements
 
-- [Terraform](https://terraform.io) 1.1.0+
+- [Terraform](https://terraform.io) 0.14+
 
 ## Getting Started
 
