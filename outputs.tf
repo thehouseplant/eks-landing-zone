@@ -13,7 +13,7 @@ output "cluster_security_group_id" {
   value       = module.eks.cluster_security_group_id
 }
 
-module "kubectl_config" {
+output "kubectl_config" {
   description = "kubectl configuration"
   value       = module.eks.kubeconfig
 }
