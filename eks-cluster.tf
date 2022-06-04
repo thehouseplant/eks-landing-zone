@@ -4,8 +4,10 @@ resource "aws_eks_cluster" "cluster" {
   version  = var.eks_version
 
   vpc_config {
-    security_group_ids = [aws_security_group.eks_sg.id]
-    subnet_ids         = [aws_subnet.private_a.id, aws_subnet.private_b.id, aws_subnet.private_c.id]
+    security_group_ids      = [aws_security_group.eks_sg.id]
+    subnet_ids              = [aws_subnet.private_a.id, aws_subnet.private_b.id, aws_subnet.private_c.id]
+    endpoint_private_access = true
+    endpoint_public_access  = false
   }
 
   depends_on = [
