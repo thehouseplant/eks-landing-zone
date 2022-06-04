@@ -69,3 +69,8 @@ resource "aws_iam_role_policy_attachment" "node_AmazonEC2FullAccess" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
   role       = aws_iam_role.nodes_role.name
 }
+
+resource "aws_iam_instance_profile" "node_profile" {
+  name = "${var.prefix}-NODE-PROFILE"
+  role = aws_iam_role.nodes_role
+}
