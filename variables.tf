@@ -13,6 +13,16 @@ variable "prefix" {
   default     = "EKS-LZ"
 }
 
+variable "default_tags" {
+  description = "Default tags for various resources"
+  type        = map(string)
+  default = {
+    Description = "EKS Landing Zone"
+    Environment = "POC"
+    Contact     = "user@example.com"
+  }
+}
+
 
 
 # Networking variables
