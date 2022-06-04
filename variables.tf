@@ -16,6 +16,12 @@ variable "subnet_size" {
   default     = 24
 }
 
+variable "eks_version" {
+  description = "Version of Kubernetes to deploy"
+  type        = string
+  default     = "1.20"
+}
+
 variable "eks_node_min" {
   description = "Minimum number of EKS worker nodes"
   type        = number
