@@ -9,9 +9,10 @@ data "aws_ami" "node_ami" {
 }
 
 resource "aws_eks_cluster" "cluster" {
-  name     = "${var.prefix}-CLUSTER"
-  role_arn = aws_iam_role.cluster_role.arn
-  version  = var.eks_version
+  name                      = "eks-lz-cluster"
+  role_arn                  = aws_iam_role.cluster_role.arn
+  version                   = var.eks_version
+  enabled_cluster_log_types = ["api", "audit"]
 
   vpc_config {
     security_group_ids      = [aws_security_group.eks_sg.id]
@@ -21,6 +22,7 @@ resource "aws_eks_cluster" "cluster" {
   }
 
   depends_on = [
+    aws_cloudwatch_log_group.eks_logs,
     aws_iam_role_policy_attachment.cluster_AmazonEKSClusterPolicy,
     aws_iam_role_policy_attachment.cluster_AmazonEKSServicePolicy,
     aws_iam_role_policy_attachment.cluster_AmazonEKSVPCResourceController
