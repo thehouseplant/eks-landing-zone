@@ -4,6 +4,16 @@ variable "region" {
   default     = "us-east-1"
 }
 
+
+# General variables
+variable "prefix" {
+  description = "Prefix for various resource names"
+  type        = string
+  default     = "EKS-LZ-"
+}
+
+
+# Networking variables
 variable "vpc_cidr" {
   description = "CIDR block for the VPC that will be deployed"
   type        = string
@@ -16,6 +26,8 @@ variable "subnet_size" {
   default     = 24
 }
 
+
+# EKS variables
 variable "eks_version" {
   description = "Version of Kubernetes to deploy"
   type        = string
@@ -46,6 +58,8 @@ variable "eks_node_size" {
   default     = "m5.large"
 }
 
+
+# Aurora variables
 variable "aurora_engine" {
   description = "Database engine to use for Aurora deployment"
   type        = string
