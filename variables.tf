@@ -103,6 +103,12 @@ variable "elasticache_version" {
   default     = "3.2.10"
 }
 
+variable "elasticache_parameter_group" {
+  description = "Database parameter group to use for ElastiCache"
+  type        = string
+  default     = "default.redis3.2"
+}
+
 variable "elasticache_size" {
   description = "Size of the ElastiCache instance"
   type        = string
