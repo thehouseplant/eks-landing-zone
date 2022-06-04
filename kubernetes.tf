@@ -98,7 +98,7 @@ resource "kubernetes_deployment" "alb_ingress" {
           args = ["--ingress-class=alb",
             "--cluster-name=${aws_eks_cluster.cluster.name}",
             "--aws-vpc-id=${module.vpc.vpc_id}",
-            "--aws-region=${var.region}"]
+          "--aws-region=${var.region}"]
           volume_mount {
             name       = kubernetes_service_account.alb_ingress.default_secret_name
             mount_path = "/var/run/secrets/kubernetes.io/serviceaccount"
