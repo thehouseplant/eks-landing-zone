@@ -120,3 +120,9 @@ variable "elasticache_node_count" {
   type        = number
   default     = 1
 }
+
+variable "elasticache_port" {
+  description = "Database port to use for ElastiCache"
+  type        = number
+  default     = 6379
+}
