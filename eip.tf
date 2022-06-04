@@ -4,6 +4,10 @@ resource "aws_eip" "public_a" {
   tags = {
     Name = "Public EIP A"
   }
+
+  depends_on = [
+    aws_internet_gateway.gw
+  ]
 }
 
 resource "aws_eip" "public_b" {
@@ -12,6 +16,10 @@ resource "aws_eip" "public_b" {
   tags = {
     Name = "Public EIP B"
   }
+
+  depends_on = [
+    aws_internet_gateway.gw
+  ]
 }
 
 resource "aws_eip" "public_c" {
@@ -20,4 +28,8 @@ resource "aws_eip" "public_c" {
   tags = {
     Name = "Public EIP C"
   }
+
+  depends_on = [
+    aws_internet_gateway.gw
+  ]
 }
