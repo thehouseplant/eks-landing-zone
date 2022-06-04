@@ -28,6 +28,11 @@ resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSServicePolicy" {
   role       = aws_iam_role.cluster_role.name
 }
 
+resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSVPCResourceController" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
+  role       = aws_iam_role.cluster_role.name
+}
+
 
 
 # EKS worker nodes role
