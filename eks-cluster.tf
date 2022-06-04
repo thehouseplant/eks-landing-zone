@@ -1,3 +1,13 @@
+data "aws_ami" "node_ami" {
+  filter {
+    name   = "name"
+    values = ["amazon-eks-node-${aws_eks_cluster.cluster.version}-v*"]
+  }
+
+  most_recent = true
+  owners      = ["602401143452"]
+}
+
 resource "aws_eks_cluster" "cluster" {
   name     = "${var.prefix}-CLUSTER"
   role_arn = aws_iam_role.cluster_role.arn
@@ -34,4 +44,17 @@ resource "aws_eks_node_group" "node" {
     aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy
   ]
+}
+
+resource "aws_launch_configuration" "node" {
+  iam_instance_profile = aws_iam_instance_profile.node_profile
+  image_id             = data.aws_ami.node_ami.id
+  instance_type        = var.eks_node_size
+  name_prefix          = "${var.prefix}-NODE"
+  security_groups      = [aws_security_group.eks_sg.id]
+  user_data_base64     = base64encode(local.node-userdata)
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
