@@ -9,7 +9,7 @@ variable "region" {
 variable "prefix" {
   description = "Prefix for various resource names"
   type        = string
-  default     = "EKS-LZ-"
+  default     = "EKS-LZ"
 }
 
 
