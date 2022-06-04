@@ -18,8 +18,13 @@ resource "aws_iam_role" "cluster_role" {
 POLICY
 }
 
-resource "aws_iam_role_policy_attachment" "cluster_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "cluster-AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  role       = aws_iam_role.cluster_role.name
+}
+
+resource "aws_iam_role_policy_attachment" "cluster-AmazonEKSServicePolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
   role       = aws_iam_role.cluster_role.name
 }
 
