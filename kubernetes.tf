@@ -11,7 +11,7 @@ provider "kubernetes" {
 
 resource "kubernetes_cluster_role" "alb_ingress" {
   metadata {
-    name = "${var.prefix}-INGRESS-CONTROLLER"
+    name = lower("${var.prefix}-ingress-controller")
     labels = {
       "app.kubernetes.io/name" = lower("${var.prefix}-ingress-controller")
     }
@@ -32,7 +32,7 @@ resource "kubernetes_cluster_role" "alb_ingress" {
 
 resource "kubernetes_cluster_role_binding" "alb_ingress" {
   metadata {
-    name = "${var.prefix}-INGRESS-CONTROLLER"
+    name = lower("${var.prefix}-ingress-controller")
     labels = {
       "app.kubernetes.io/name" = lower("${var.prefix}-ingress-controller")
     }
@@ -49,4 +49,16 @@ resource "kubernetes_cluster_role_binding" "alb_ingress" {
     name      = lower("${var.prefix}-ingress-controller")
     namespace = "kube-system"
   }
+}
+
+resource "kubernetes_service_account" "alb_ingress" {
+  metadata {
+    name      = lower("${var.prefix}-ingress-controller")
+    namespace = "kube-system"
+    labels = {
+      "app.kubernetes.io/name" = lower("${var.prefix}-ingress-controller")
+    }
+  }
+
+  automount_service_account_token = true
 }
