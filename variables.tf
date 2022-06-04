@@ -61,13 +61,13 @@ variable "eks_node_size" {
 
 # Aurora variables
 variable "aurora_engine" {
-  description = "Database engine to use for Aurora deployment"
+  description = "Database engine to use for Aurora"
   type        = string
   default     = "postgres"
 }
 
 variable "aurora_version" {
-  description = "Database version to use for Aurora deployment"
+  description = "Database version to use for Aurora"
   type        = string
   default     = "13.7"
 }
@@ -76,4 +76,10 @@ variable "aurora_size" {
   description = "Size of the Aurora instance"
   type        = string
   default     = "db.t3.small"
+}
+
+variable "aurora_user" {
+  description = "Name of the administrator user for Aurora"
+  type        = string
+  default     = "administrator"
 }
