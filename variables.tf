@@ -5,12 +5,14 @@ variable "region" {
 }
 
 
+
 # General variables
 variable "prefix" {
   description = "Prefix for various resource names"
   type        = string
   default     = "EKS-LZ"
 }
+
 
 
 # Networking variables
@@ -25,6 +27,7 @@ variable "subnet_size" {
   type        = number
   default     = 24
 }
+
 
 
 # EKS variables
@@ -59,6 +62,7 @@ variable "eks_node_size" {
 }
 
 
+
 # Aurora variables
 variable "aurora_engine" {
   description = "Database engine to use for Aurora"
@@ -82,4 +86,31 @@ variable "aurora_user" {
   description = "Name of the administrator user for Aurora"
   type        = string
   default     = "administrator"
+}
+
+
+
+# ElastiCache variables
+variable "elasticache_engine" {
+  description = "Database engine to use for ElastiCache"
+  type        = string
+  default     = "redis"
+}
+
+variable "elasticache_version" {
+  description = "Database version to use for ElastiCache"
+  type        = string
+  default     = "3.2.10"
+}
+
+variable "elasticache_size" {
+  description = "Size of the ElastiCache instance"
+  type        = string
+  default     = "cache.t2.small"
+}
+
+variable "elasticache_node_count" {
+  description = "Number of ElastiCache nodes to run"
+  type        = number
+  default     = 1
 }
