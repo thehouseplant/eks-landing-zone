@@ -79,7 +79,7 @@ resource "aws_iam_instance_profile" "node_profile" {
 
 # Ingress controller policy
 resource "aws_iam_policy" "alb_ingress" {
-  name        = "${var.prefix}-ALB-POLICY"
+  name = "${var.prefix}-ALB-POLICY"
 
   policy = <<EOF
 {
