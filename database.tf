@@ -5,9 +5,9 @@ resource "aws_db_instance" "postgres" {
   backup_window             = "01:00-01:30"
   maintenance_window        = "sun:03:00-sun:03:30"
   multi_az                  = true
-  engine                    = "postgres"
-  engine_version            = "13.7"
-  instance_class            = "db.t3.small"
+  engine                    = var.aurora_engine
+  engine_version            = var.aurora_version
+  instance_class            = var.aurora_size
   db_name                   = "eks-test"
   username                  = "administrator"
   password                  = ""
