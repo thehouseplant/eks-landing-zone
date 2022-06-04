@@ -1,6 +1,6 @@
-# EKS Test
+# EKS Landing Zone
 
-A test environment for greenfield container image deployments using AWS Elastic Kubernetes Service (EKS)
+A complete production environment for running containerized workloads in AWS, using the Elastic Kubernetes Service (EKS) for orchestratation. 
 
 ## Requirements
 
