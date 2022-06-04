@@ -17,7 +17,7 @@ variable "prefix" {
 variable "vpc_cidr" {
   description = "CIDR block for the VPC that will be deployed"
   type        = string
-  default     = "10.0.0.0/8"
+  default     = "10.0.0.0/16"
 }
 
 variable "subnet_size" {
