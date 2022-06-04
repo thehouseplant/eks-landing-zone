@@ -62,3 +62,51 @@ resource "kubernetes_service_account" "alb_ingress" {
 
   automount_service_account_token = true
 }
+
+resource "kubernetes_deployment" "alb_ingress" {
+  metadata {
+    name      = lower("${var.prefix}-ingress-controller")
+    namespace = "kube-system"
+    labels = {
+      "app.kubernetes.io/name" = lower("${var.prefix}-ingress-controller")
+    }
+  }
+
+  spec {
+    selector {
+      match_labels = {
+        "app.kubernetes.io/name" = lower("${var.prefix}-ingress-controller")
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          "app.kubernetes.io/name" = lower("${var.prefix}-ingress-controller")
+        }
+      }
+      spec {
+        volume {
+          name = kubernetes_service_account.alb_ingress.default_secret_name
+          secret {
+            secret_name = kubernetes_service_account.alb_ingress.default_secret_name
+          }
+        }
+        container {
+          image = "docker.io/amazon/aws-alb-ingress-controller:v1.1.4"
+          name  = lower("${var.prefix}-ingress-controller")
+          args = ["--ingress-class=alb",
+            "--cluster-name=${aws_eks_cluster.cluster.name}",
+            "--aws-vpc-id=${module.vpc.vpc_id}",
+            "--aws-region=${var.region}"]
+          volume_mount {
+            name       = kubernetes_service_account.alb_ingress.default_secret_name
+            mount_path = "/var/run/secrets/kubernetes.io/serviceaccount"
+            read_only  = true
+          }
+        }
+        service_account_name = lower("${var.prefix}-ingress-controller")
+      }
+    }
+  }
+}
