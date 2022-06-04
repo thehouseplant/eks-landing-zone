@@ -2,7 +2,7 @@
 resource "aws_subnet" "public_a" {
   vpc_id            = module.vpc.vpc_id
   cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1a"
+  availability_zone = "${var.region}a"
 
   tags = {
     Name = "Public Subnet A"
@@ -17,7 +17,7 @@ resource "aws_route_table_association" "public_a" {
 resource "aws_subnet" "public_b" {
   vpc_id            = module.vpc.vpc_id
   cidr_block        = "10.0.2.0/24"
-  availability_zone = "us-east-1b"
+  availability_zone = "${var.region}b"
 
   tags = {
     Name = "Public Subnet B"
@@ -32,7 +32,7 @@ resource "aws_route_table_association" "public_b" {
 resource "aws_subnet" "public_c" {
   vpc_id            = module.vpc.vpc_id
   cidr_block        = "10.0.3.0/24"
-  availability_zone = "us-east-1c"
+  availability_zone = "${var.region}c"
 
   tags = {
     Name = "Public Subnet C"
@@ -50,7 +50,7 @@ resource "aws_route_table_association" "public_c" {
 resource "aws_subnet" "private_a" {
   vpc_id            = module.vpc.vpc_id
   cidr_block        = "10.0.5.0/24"
-  availability_zone = "us-west-2a"
+  availability_zone = "${var.region}a"
 
   tags = {
     Name = "Private Subnet A"
@@ -65,7 +65,7 @@ resource "aws_route_table_association" "private_a" {
 resource "aws_subnet" "private_b" {
   vpc_id            = module.vpc.vpc_id
   cidr_block        = "10.0.6.0/24"
-  availability_zone = "us-west-2b"
+  availability_zone = "${var.region}b"
 
   tags = {
     Name = "Private Subnet B"
@@ -80,7 +80,7 @@ resource "aws_route_table_association" "private_b" {
 resource "aws_subnet" "private_c" {
   vpc_id            = module.vpc.vpc_id
   cidr_block        = "10.0.7.0/24"
-  availability_zone = "us-west-2c"
+  availability_zone = "${var.region}c"
 
   tags = {
     Name = "Private Subnet C"

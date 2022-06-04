@@ -1,5 +1,5 @@
 resource "aws_eks_cluster" "cluster" {
-  name     = "EKS-TEST"
+  name     = "${var.prefix}-CLUSTER"
   role_arn = aws_iam_role.cluster_role.arn
   version  = var.eks_version
 
@@ -15,7 +15,7 @@ resource "aws_eks_cluster" "cluster" {
 
 resource "aws_eks_node_group" "node" {
   cluster_name    = aws_eks_cluster.cluster.name
-  node_group_name = "EKS-TEST-1"
+  node_group_name = "${var.prefix}-1"
   node_role_arn   = aws_iam_role.nodes_role.arn
   subnet_ids      = [aws_subnet.private_a.id, aws_subnet.private_b.id, aws_subnet.private_c.id]
 

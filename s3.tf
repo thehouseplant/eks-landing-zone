@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "s3_logs" {
-  bucket = "eks-test-s3-bucket-logs"
+  bucket = lower("${var.prefix}-s3-bucket-logs")
 
   tags = {
     Name = "EKS Logging Bucket"
