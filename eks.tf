@@ -66,7 +66,9 @@ resource "aws_launch_template" "node" {
     device_name = "/dev/sda1"
 
     ebs {
+      encrypted   = true
       volume_size = var.eks_node_storage
+      volume_type = "gp3"
     }
   }
 
