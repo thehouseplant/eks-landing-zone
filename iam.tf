@@ -77,7 +77,7 @@ resource "aws_iam_role_policy_attachment" "node_AmazonEC2FullAccess" {
 
 resource "aws_iam_instance_profile" "node_profile" {
   name = "${var.prefix}-NODE-PROFILE"
-  role = aws_iam_role.nodes_role
+  role = aws_iam_role.nodes_role.name
 }
 
 
