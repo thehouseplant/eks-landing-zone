@@ -78,6 +78,10 @@ resource "aws_launch_template" "node" {
     name = aws_iam_instance_profile.node_profile.name
   }
 
+  monitoring {
+    enabled = true
+  }
+
   tags = {
     Name = "EKS Worker Node"
   }
