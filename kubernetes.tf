@@ -6,7 +6,6 @@ provider "kubernetes" {
   host                   = aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(aws_eks_cluster.cluster.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.main.token
-  load_config_file       = false
 }
 
 resource "kubernetes_cluster_role" "alb_ingress" {
@@ -38,13 +37,13 @@ resource "kubernetes_cluster_role_binding" "alb_ingress" {
     }
   }
 
-  rule {
-    api_group = "rbac.authorized.k8s.io"
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
     name      = lower("${var.prefix}-ingress-controller")
   }
 
-  rule {
+  subject {
     kind      = "ServiceAccount"
     name      = lower("${var.prefix}-ingress-controller")
     namespace = "kube-system"
