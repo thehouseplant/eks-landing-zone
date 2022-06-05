@@ -1,7 +1,7 @@
-# Default WAF ACI rule
-resource "aws_wafv2_web_aci" "aci_default" {
+# Default WAF ACL rule
+resource "aws_wafv2_web_acl" "acl_default" {
   name        = "${var.prefix}-WAF-DEFAULT"
-  description = "Default WAF ACI rule"
+  description = "Default WAF ACL rule"
   scope       = "REGIONAL"
 
   default_action {
@@ -45,7 +45,7 @@ resource "aws_wafv2_web_aci" "aci_default" {
   }
 
   tags = {
-    Name = "Default WAF ACI"
+    Name = "Default WAF ACL"
   }
 
   visibility_config {
@@ -57,10 +57,10 @@ resource "aws_wafv2_web_aci" "aci_default" {
 
 
 
-# Rate-limited WAF ACI rule
-resource "aws_wafv2_web_aci" "aci_limited" {
+# Rate-limited WAF ACL rule
+resource "aws_wafv2_web_acl" "acl_limited" {
   name        = "${var.prefix}-WAF-LIMITED"
-  description = "Rate-limited WAF ACI rule"
+  description = "Rate-limited WAF ACL rule"
   scope       = "CLOUDFRONT"
 
   default_action {
@@ -96,7 +96,7 @@ resource "aws_wafv2_web_aci" "aci_limited" {
   }
 
   tags = {
-    Name = "Default WAF ACI"
+    Name = "Default WAF ACL"
   }
 
   visibility_config {
@@ -104,4 +104,12 @@ resource "aws_wafv2_web_aci" "aci_limited" {
     metric_name                = "default-metrics"
     sampled_requests_enabled   = false
   }
+}
+
+
+
+# WAF ALB Association
+resource "aws_wafv2_web_acl_association" "alb_association" {
+  resource_arn = aws_lb.ingress.arn
+  web_acl_arn  = aws_wafv2_web_acl.acl_default.arn
 }
