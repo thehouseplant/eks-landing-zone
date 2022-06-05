@@ -41,6 +41,11 @@ resource "aws_eks_node_group" "node" {
     min_size     = var.eks_node_min
   }
 
+  launch_template {
+    id      = aws_launch_template.node.id
+    version = "$Latest"
+  }
+
   depends_on = [
     aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly,
     aws_iam_role_policy_attachment.node_AmazonEC2FullAccess,
@@ -49,15 +54,31 @@ resource "aws_eks_node_group" "node" {
   ]
 }
 
-resource "aws_launch_configuration" "node" {
-  iam_instance_profile = aws_iam_instance_profile.node_profile.name
-  image_id             = data.aws_ami.node_ami.id
-  instance_type        = var.eks_node_size
-  name_prefix          = "${var.prefix}-NODE"
-  security_groups      = [aws_security_group.eks_sg.id]
-  user_data_base64     = base64encode(local.node-userdata)
+resource "aws_launch_template" "node" {
+  name                   = "${var.prefix}-DEFAULT"
+  ebs_optimized          = true
+  image_id               = data.aws_ami.node_ami.id
+  instance_type          = var.eks_node_size
+  vpc_security_group_ids = [aws_security_group.eks_sg.id]
+  user_data              = base64encode(local.node-userdata)
 
-  lifecycle {
-    create_before_destroy = true
+  block_device_mappings {
+    device_name = "/dev/sda1"
+
+    ebs {
+      volume_size = var.eks_node_storage
+    }
+  }
+
+  capacity_reservation_specification {
+    capacity_reservation_preference = "open"
+  }
+
+  iam_instance_profile {
+    name = aws_iam_instance_profile.node_profile.name
+  }
+
+  tags = {
+    Name = "EKS Worker Node"
   }
 }
