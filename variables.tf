@@ -121,6 +121,12 @@ variable "rds_version" {
   default     = "13.7"
 }
 
+variable "rds_count" {
+  description = "Number of RDS instances to provision"
+  type        = number
+  default     = 2
+}
+
 variable "rds_size" {
   description = "Size of the RDS instances"
   type        = string
