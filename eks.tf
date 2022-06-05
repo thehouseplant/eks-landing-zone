@@ -50,7 +50,7 @@ resource "aws_eks_node_group" "node" {
 }
 
 resource "aws_launch_configuration" "node" {
-  iam_instance_profile = aws_iam_instance_profile.node_profile
+  iam_instance_profile = aws_iam_instance_profile.node_profile.name
   image_id             = data.aws_ami.node_ami.id
   instance_type        = var.eks_node_size
   name_prefix          = "${var.prefix}-NODE"
