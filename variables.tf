@@ -69,33 +69,6 @@ variable "eks_node_storage" {
 
 
 
-# Aurora variables
-variable "aurora_engine" {
-  description = "Database engine to use for Aurora"
-  type        = string
-  default     = "postgres"
-}
-
-variable "aurora_version" {
-  description = "Database version to use for Aurora"
-  type        = string
-  default     = "13.7"
-}
-
-variable "aurora_size" {
-  description = "Size of the Aurora instance"
-  type        = string
-  default     = "db.t3.small"
-}
-
-variable "aurora_user" {
-  description = "Name of the administrator user for Aurora"
-  type        = string
-  default     = "administrator"
-}
-
-
-
 # ElastiCache variables
 variable "elasticache_engine" {
   description = "Database engine to use for ElastiCache"
@@ -131,4 +104,39 @@ variable "elasticache_port" {
   description = "Database port to use for ElastiCache"
   type        = number
   default     = 6379
+}
+
+
+
+# RDS variables
+variable "rds_engine" {
+  description = "Database engine to use for RDS"
+  type        = string
+  default     = "aurora-postgresql"
+}
+
+variable "rds_version" {
+  description = "Database version to use for RDS"
+  type        = string
+  default     = "13.7"
+}
+
+variable "rds_size" {
+  description = "Size of the RDS instances"
+  type        = string
+  default     = "db.t3.small"
+}
+
+variable "rds_user" {
+  description = "Name of the master user for RDS"
+  type        = string
+  default     = "administrator"
+  sensitive   = true
+}
+
+variable "rds_pass" {
+  description = "Password for the master user for RDS"
+  type        = string
+  default     = ""
+  sensitive   = true
 }
