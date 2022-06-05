@@ -96,7 +96,7 @@ resource "aws_wafv2_web_acl" "acl_limited" {
   }
 
   tags = {
-    Name = "Default WAF ACL"
+    Name = "Rate-Limited WAF ACL"
   }
 
   visibility_config {
