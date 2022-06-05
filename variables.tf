@@ -127,6 +127,12 @@ variable "rds_size" {
   default     = "db.t3.small"
 }
 
+variable "rds_name" {
+  description = "Name of the RDS database"
+  type        = string
+  default     = "eksazdb"
+}
+
 variable "rds_user" {
   description = "Name of the master user for RDS"
   type        = string
