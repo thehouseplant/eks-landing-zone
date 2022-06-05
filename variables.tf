@@ -61,6 +61,12 @@ variable "eks_node_size" {
   default     = "m5.large"
 }
 
+variable "eks_node_storage" {
+  description = "Size of the EBS volume for each of the EKS worker nodes"
+  type        = number
+  default     = 20
+}
+
 
 
 # Aurora variables
