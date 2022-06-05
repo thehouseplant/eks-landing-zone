@@ -6,6 +6,7 @@ resource "aws_elasticache_cluster" "cluster" {
   parameter_group_name = var.elasticache_parameter_group
   engine_version       = var.elasticache_version
   port                 = var.elasticache_port
+  security_group_ids   = [aws_security_group.elasticache_sg.id]
 
   log_delivery_configuration {
     destination      = aws_cloudwatch_log_group.elasticache_logs.name
