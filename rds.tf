@@ -1,5 +1,5 @@
 resource "aws_rds_cluster" "cluster" {
-  cluster_identifier           = "${var.prefix}-RDS-CLUSTER"
+  cluster_identifier           = lower("${var.prefix}-rds-cluster")
   engine                       = var.rds_engine
   engine_version               = var.rds_version
   availability_zones           = ["${var.region}a", "${var.region}b", "${var.region}c"]
@@ -10,7 +10,6 @@ resource "aws_rds_cluster" "cluster" {
   preferred_backup_window      = "01:00-01:30"
   preferred_maintenance_window = "sun:03:00-sun:03:30"
   deletion_protection          = true
-  auto_minor_version_upgrade   = true
 }
 
 resource "aws_rds_cluster_instance" "instance" {
