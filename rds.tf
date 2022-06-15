@@ -1,6 +1,6 @@
 resource "aws_rds_cluster" "cluster" {
   cluster_identifier           = "${var.prefix}-RDS-CLUSTER"
-  engine                       = var.aurora_engine
+  engine                       = var.rds_engine
   engine_version               = var.rds_version
   availability_zones           = ["${var.region}a", "${var.region}b", "${var.region}c"]
   database_name                = var.rds_name
